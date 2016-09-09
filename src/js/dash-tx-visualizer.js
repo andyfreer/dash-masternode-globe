@@ -1,2 +1,0 @@
-// Hello
-console.log('hello');
