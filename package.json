@@ -1,0 +1,50 @@
+{
+  "name": "dash-tx-visualizer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scss:dev": "./node_modules/node-sass/bin/node-sass --output-style nested --indent-type tab --indent-width 4 -o dist src/scss/style.scss",
+    "scss": "./node_modules/node-sass/bin/node-sass --output-style compressed -o dist src/scss/style.scss",
+    "autoprefixer": "postcss -u autoprefixer -r dist/*.css",
+    "babel": "./node_modules/.bin/babel src/js/dash-tx-visualizer.js | ./node_modules/uglify-js/bin/uglifyjs -m -o ./dist/dash-tx-visualizer.min.js",
+    "babel:dev": "./node_modules/.bin/babel src/js/dash-tx-visualizer.js --out-file ./dist/dash-tx-visualizer.min.js",
+    "browsersync": "browser-sync start  -s --reload-debounce 1000 --open -f .",
+    "build:js": "npm run babel && npm run babel",
+    "build:css": "npm run scss && npm run autoprefixer",
+    "build:all": "npm run build:css && npm run build:js",
+    "watch:css": "onchange 'src/scss/*.scss' -- npm run build:css",
+    "watch:js": "onchange 'src/js/*.js' -- npm run build:js",
+    "watch": "npm run watch:all",
+    "watch:all": "./node_modules/npm-run-all/bin/run-p/index.js browsersync watch:css watch:js",
+    "postinstall": "npm run build:all"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0xfffxfff/dash-tx-visualizer.git"
+  },
+  "author": "0xfff <0xfff@protonmail.com>",
+  "license": "(MIT)",
+  "bugs": {
+    "url": "https://github.com/0xfffxfff/dash-tx-visualizer/issues"
+  },
+  "homepage": "https://github.com/0xfffxfff/dash-tx-visualizer#readme",
+  "devDependencies": {
+    "autoprefixer": "6.3.6",
+    "babel-cli": "6.14.0",
+    "babel-core": "6.14.0",
+    "babel-loader": "6.2.5",
+    "babel-plugin-uglify": "^1.0.2",
+    "babel-preset-es2015": "6.14.0",
+    "browser-sync": "2.12.12",
+    "hashmark": "3.1.0",
+    "node-sass": "3.7.0",
+    "npm-run-all": "2.1.1",
+    "onchange": "2.4.0",
+    "parallelshell": "2.0.0",
+    "postcss-cli": "2.5.2",
+    "uglify-js": "2.6.2",
+    "webpack": "1.13.2"
+  }
+}
