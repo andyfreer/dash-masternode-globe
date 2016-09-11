@@ -1,4 +1,4 @@
-import THREE from 'three';
+import * as THREE from 'three';
 import * as d3 from 'd3'
 import Detector from 'exports?Detector!../../node_modules/webgl-globe/globe/third-party/Detector.js';
 import DAT from 'imports?THREE=three!exports?DAT!../../node_modules/webgl-globe/globe/globe.js';
@@ -6,7 +6,15 @@ import DAT from 'imports?THREE=three!exports?DAT!../../node_modules/webgl-globe/
 
 var globeData = [],
 	globe = new DAT.Globe(container, {
-		imgDir: 'assets/'
+		imgDir: 'assets/',
+		colorFn: function(label) {
+			return new THREE.Color([
+				0xd9d9d9, 0xb6b4b5, 0x9966cc, 0x15adff, 0x3e66a3,
+				0x216288, 0xff7e7e, 0xff1f13, 0xc0120b, 0x5a1301, 0xffcc02,
+				0xedb113, 0x9fce66, 0x0c9a39,
+				0xfe9872, 0x7f3f98, 0xf26522, 0x2bb673, 0xd7df23,
+				0xe6b23a, 0x7ed3f7][label]);
+		}
 	});
 
 /**
