@@ -9,6 +9,11 @@ var globeData = [],
 		imgDir: 'assets/'
 	});
 
+/**
+ * Data taken from (11.09.16)
+ * http://178.254.23.111/~pub/Dash/MN_locations.data
+ **/
+
 d3.request('assets/MN_locations.data')
 	.mimeType('text/tab-separated-values')
 	.response(function(xhr) {
