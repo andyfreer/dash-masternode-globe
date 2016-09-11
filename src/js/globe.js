@@ -44,7 +44,7 @@ function Globe(container, opts) {
 				'void main() {',
 				'vec3 diffuse = texture2D( texture, vUv ).xyz;',
 				'float intensity = 1.05 - dot( vNormal, vec3( 0.0, 0.0, 1.0 ) );',
-				'vec3 atmosphere = vec3( 1.0, 1.0, 1.0 ) * pow( intensity, 3.0 );',
+				'vec3 atmosphere = vec3( 0.11764, 0.4509, 0.745 ) * pow( intensity, 3.0 );',
 				'gl_FragColor = vec4( diffuse + atmosphere, 1.0 );',
 				'}'
 			].join('\n')
@@ -62,7 +62,7 @@ function Globe(container, opts) {
 				'varying vec3 vNormal;',
 				'void main() {',
 				'float intensity = pow( 0.8 - dot( vNormal, vec3( 0, 0, 1.0 ) ), 12.0 );',
-				'gl_FragColor = vec4( 1.0, 1.0, 1.0, 1.0 ) * intensity;',
+				'gl_FragColor = vec4( 0.11764, 0.4509, 0.745, 0.5 ) * intensity;',
 				'}'
 			].join('\n')
 		}
@@ -107,7 +107,9 @@ function Globe(container, opts) {
 		shader = Shaders['earth'];
 		uniforms = THREE.UniformsUtils.clone(shader.uniforms);
 
-		uniforms['texture'].value = THREE.ImageUtils.loadTexture(imgDir + 'world.jpg');
+		var textureLoader = new THREE.TextureLoader();
+
+		uniforms['texture'].value = textureLoader.load(imgDir + 'world.jpg');
 
 		material = new THREE.ShaderMaterial({
 
