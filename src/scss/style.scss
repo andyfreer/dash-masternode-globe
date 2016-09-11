@@ -10,8 +10,26 @@ html {
 
 #container {
 	position: absolute;
+	z-index: 1;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
+}
+
+.logo {
+	width: 100%;
+	margin-bottom: 15px;
+}
+
+.content {
+	width: 250px;
+	position: absolute;
+	z-index: 2;
+	top: 30px;
+	left: 50%;
+	transform: translateX(-50%);
+	color: #fff;
+	font-family: sans-serif;
+	text-align: center;
 }

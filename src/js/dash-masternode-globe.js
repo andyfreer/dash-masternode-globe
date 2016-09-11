@@ -1,63 +1,61 @@
-import TWEEN from 'exports?TWEEN!../../node_modules/webgl-globe/globe/third-party/Tween.js';
 import THREE from 'three';
+import * as d3 from 'd3'
 import Detector from 'exports?Detector!../../node_modules/webgl-globe/globe/third-party/Detector.js';
 import DAT from 'imports?THREE=three!exports?DAT!../../node_modules/webgl-globe/globe/globe.js';
 
-// Hello
-console.log(THREE);
 
+var globeData = [],
+	globe = new DAT.Globe(container, {
+		imgDir: 'assets/'
+	});
 
-if (!Detector.webgl) {
-	Detector.addGetWebGLMessage();
-} else {
+d3.request('assets/MN_locations.data')
+	.mimeType('text/tab-separated-values')
+	.response(function(xhr) {
+		return d3.tsvParse(xhr.responseText, function(d) {
+			var masternodeCount = 0,
+				lat = 0,
+				lon = 0;
+			try {
+				masternodeCount = parseInt(d.description.replace('Masternodes: ', ''), 10);
+				lat = parseFloat(d.lat);
+				lon = parseFloat(d.lon);
+			} catch (e) {}
 
-	var years = ['1990', '1995', '2000'];
-	var container = document.getElementById('container');
-	var globe = new DAT.Globe(container);
+			return {
+				lat: lat,
+				lon: lon,
+				masternodes: masternodeCount,
+				_masternodes: d.description,
+				title: d.title
+			};
+		});
+	})
+	.get(function(error, tsvData) {
 
-	console.log(globe);
-	var i, tweens = [];
+		let dataSet = [];
 
-	var settime = function(globe, t) {
-		return function() {
-			new TWEEN.Tween(globe).to({ time: t / years.length }, 500).easing(TWEEN.Easing.Cubic.EaseOut).start();
-			// var y = document.getElementById('year' + years[t]);
-			// if (y.getAttribute('class') === 'year active') {
-			// 	return;
-			// }
-			// var yy = document.getElementsByClassName('year');
-			// for (i = 0; i < yy.length; i++) {
-			// 	yy[i].setAttribute('class', 'year');
-			// }
-			// y.setAttribute('class', 'year active');
-		};
-	};
+		tsvData.forEach(function(d) {
+			dataSet.push(d.lat);
+			dataSet.push(d.lon);
+			dataSet.push(d.masternodes/4200*3);
+		});
 
-	// for (var i = 0; i < years.length; i++) {
-	// 	var y = document.getElementById('year' + years[i]);
-	// 	y.addEventListener('mouseover', settime(globe, i), false);
-	// }
+		globeData.push(['current', dataSet]);
 
-	var xhr;
-	TWEEN.start();
+		if (!Detector.webgl) {
+			Detector.addGetWebGLMessage();
+		} else {
+			window.data = globeData;
 
-
-	xhr = new XMLHttpRequest();
-	xhr.open('GET', '/globe/population909500.json', true);
-	xhr.onreadystatechange = function(e) {
-		if (xhr.readyState === 4) {
-			if (xhr.status === 200) {
-				var data = JSON.parse(xhr.responseText);
-				window.data = data;
-				for (i = 0; i < data.length; i++) {
-					globe.addData(data[i][1], { format: 'magnitude', name: data[i][0], animated: true });
-				}
-				globe.createPoints();
-				settime(globe, 0)();
-				globe.animate();
-				document.body.style.backgroundImage = 'none'; // remove loading
+			for (let i = 0; i < data.length; i++) {
+				globe.addData(data[i][1], { format: 'magnitude', name: data[i][0], animated: true });
 			}
+
+			globe.createPoints();
+			globe.time = 1;
+			globe.animate();
+
+			document.body.style.backgroundImage = 'none'; // remove loading
 		}
-	};
-	xhr.send(null);
-}
+	});
