@@ -24,7 +24,8 @@ html {
 }
 
 .content {
-	width: 250px;
+	max-width: 100%;
+	width: 500px;
 	position: absolute;
 	z-index: 2;
 	top: 30px;
