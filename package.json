@@ -14,6 +14,7 @@
     "build:js": "webpack",
     "build:css": "npm run scss && npm run autoprefixer",
     "build:all": "npm run build:css && npm run build:js",
+    "build": "npm run build:all",
     "watch:css": "onchange './src/scss/*.scss' -- npm run build:css",
     "watch:js": "onchange './src/js/*.js' -- npm run build:js",
     "watch": "npm run watch:all",
@@ -55,7 +56,7 @@
     "webpack": "1.13.2"
   },
   "dependencies": {
-    "d3": "^4.2.2",
-    "three": "^0.80.1"
+    "d3": "4.2.2",
+    "three": "0.80.1"
   }
 }
