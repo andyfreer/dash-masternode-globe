@@ -19,6 +19,7 @@ html {
 
 .logo {
 	width: 100%;
+	max-width: 130px;
 	margin-bottom: 15px;
 }
 
@@ -30,6 +31,7 @@ html {
 	left: 50%;
 	transform: translateX(-50%);
 	color: #fff;
-	font-family: sans-serif;
+	font-family: monospace;
 	text-align: center;
+	letter-spacing: 0.01em;
 }
