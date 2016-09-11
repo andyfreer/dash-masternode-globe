@@ -1,11 +1,12 @@
 import * as THREE from 'three';
 import * as d3 from 'd3'
 import Detector from 'exports?Detector!../../node_modules/webgl-globe/globe/third-party/Detector.js';
-import DAT from 'imports?THREE=three!exports?DAT!../../node_modules/webgl-globe/globe/globe.js';
+import Globe from './globe.js';
 
 
 var globeData = [],
-	globe = new DAT.Globe(container, {
+	container = document.getElementById('container'),
+	globe = new Globe(container, {
 		imgDir: 'assets/',
 		colorFn: function(label) {
 			return new THREE.Color([
@@ -51,7 +52,7 @@ d3.request('assets/MN_locations.data')
 		tsvData.forEach(function(d) {
 			dataSet.push(d.lat);
 			dataSet.push(d.lon);
-			dataSet.push(d.masternodes/4200*3);
+			dataSet.push(d.masternodes/4200*3 + 3/4200);
 		});
 
 		globeData.push(['current', dataSet]);
