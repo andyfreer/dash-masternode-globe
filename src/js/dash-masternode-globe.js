@@ -6,16 +6,12 @@ import Globe from './globe.js';
 
 var globeData = [],
 	container = document.getElementById('container'),
+	masternodeTotalCount = 4200, // TODO: Replace this with value from some API
 	globe = new Globe(container, {
 		imgDir: 'assets/',
 		pointSize: 1.1,
 		colorFn: function(label) {
-			return new THREE.Color([
-				0xd9d9d9, 0xb6b4b5, 0x9966cc, 0x15adff, 0x3e66a3,
-				0x216288, 0xff7e7e, 0xff1f13, 0xc0120b, 0x5a1301, 0xffcc02,
-				0xedb113, 0x9fce66, 0x0c9a39,
-				0xfe9872, 0x7f3f98, 0xf26522, 0x2bb673, 0xd7df23,
-				0xe6b23a, 0x7ed3f7][label]);
+			return new THREE.Color(0xffffff);
 		}
 	});
 
@@ -53,7 +49,7 @@ d3.request('assets/mn_locations.tsv')
 		tsvData.forEach(function(d) {
 			dataSet.push(d.lat);
 			dataSet.push(d.lon);
-			dataSet.push(d.masternodes/4200*3 + 3/4200);
+			dataSet.push(d.masternodes/masternodeTotalCount*3 + 3/masternodeTotalCount);
 		});
 
 		globeData.push(['current', dataSet]);
