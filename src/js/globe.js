@@ -141,7 +141,7 @@ function Globe(container, opts) {
 		mesh.scale.set(1.1, 1.1, 1.1);
 		scene.add(mesh);
 
-		geometry = new THREE.BoxGeometry(0.75, 0.75, 1);
+		geometry = new THREE.BoxGeometry(opts.pointSize || 0.75, opts.pointSize || 0.75, 1);
 		geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, 0, -0.5));
 
 		point = new THREE.Mesh(geometry);

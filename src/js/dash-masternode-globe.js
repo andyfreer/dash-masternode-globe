@@ -8,6 +8,7 @@ var globeData = [],
 	container = document.getElementById('container'),
 	globe = new Globe(container, {
 		imgDir: 'assets/',
+		pointSize: 1.1,
 		colorFn: function(label) {
 			return new THREE.Color([
 				0xd9d9d9, 0xb6b4b5, 0x9966cc, 0x15adff, 0x3e66a3,
