@@ -24,7 +24,7 @@ var globeData = [],
  * http://178.254.23.111/~pub/Dash/MN_locations.data
  **/
 
-d3.request('assets/MN_locations.data')
+d3.request('assets/mn_locations.tsv')
 	.mimeType('text/tab-separated-values')
 	.response(function(xhr) {
 		return d3.tsvParse(xhr.responseText, function(d) {
