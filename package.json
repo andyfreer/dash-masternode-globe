@@ -8,9 +8,7 @@
     "scss:dev": "./node_modules/node-sass/bin/node-sass --output-style nested --indent-type tab --indent-width 4 -o dist src/scss/style.scss",
     "scss": "./node_modules/node-sass/bin/node-sass --output-style compressed -o dist src/scss/style.scss",
     "autoprefixer": "postcss -u autoprefixer -r dist/*.css",
-    "babel": "./node_modules/.bin/babel src/js/dash-masternode-globe.js | ./node_modules/uglify-js/bin/uglifyjs -m -o ./dist/dash-masternode-globe.min.js",
-    "babel:dev": "./node_modules/.bin/babel src/js/dash-masternode-globe.js --out-file ./dist/dash-masternode-globe.min.js",
-    "browsersync": "browser-sync start -s --reload-debounce 1000 --open -f 'dist'",
+    "browsersync": "browser-sync start -s --reload-debounce 1000 --open -f 'dist' './index.html'",
     "build:js": "webpack",
     "build:css": "npm run scss && npm run autoprefixer",
     "build:all": "npm run build:css && npm run build:js",
@@ -19,25 +17,20 @@
     "watch:js": "onchange './src/js/*.js' -- npm run build:js",
     "watch": "npm run watch:all",
     "watch:all": "./node_modules/npm-run-all/bin/run-p/index.js browsersync watch:css watch:js",
-    "postinstall": "npm run build:all",
-    "install": "napa"
-  },
-  "napa": {
-    "webgl-globe": "dataarts/webgl-globe#2d24ba30b41090bb008017b2e89623ccc285f3ea"
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/0xfffxfff/dash-masternode-globe.git"
   },
   "author": "0xfff <0xfff@protonmail.com>",
-  "license": "(MIT)",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/0xfffxfff/dash-masternode-globe/issues"
   },
   "homepage": "https://github.com/0xfffxfff/dash-masternode-globe#readme",
   "devDependencies": {
     "autoprefixer": "6.3.6",
-    "babel-cli": "6.14.0",
     "babel-core": "6.14.0",
     "babel-loader": "6.2.5",
     "babel-plugin-transform-es2015-modules-commonjs": "6.14.0",
@@ -46,7 +39,6 @@
     "exports-loader": "0.6.3",
     "hashmark": "3.1.0",
     "imports-loader": "0.6.5",
-    "napa": "2.3.0",
     "node-sass": "3.7.0",
     "npm-run-all": "2.1.1",
     "onchange": "2.4.0",
