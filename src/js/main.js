@@ -5,7 +5,7 @@ import Globe from './globe.js';
 
 
 var container = document.getElementById('container'),
-	masternodeTotalCount = 4200, // TODO: Replace this with value from some API
+	masternodeTotalCount = 4000, // Initial Value
 	pointSize = 1.1,
 	imgDir = 'assets/',
 	globeData = [],
@@ -23,6 +23,7 @@ if (!Detector.webgl) {
 		}
 	});
 	fetchData(function() {
+
 		for (let i = 0; i < globeData.length; i++) {
 			globe.addData(globeData[i][1], { format: 'magnitude', name: globeData[i][0], animated: true });
 		}
@@ -47,6 +48,9 @@ function fetchData(callback) {
 			return parseMasterNodeDataFromTSV(xhr.responseText);
 		})
 		.get(function(error, tsvData) {
+
+			masternodeTotalCount = countMasterNodes(tsvData);
+
 			globeData.push(['current', createGlobeDataSet(tsvData)]);
 
 			if (typeof callback === 'function') {
@@ -68,6 +72,19 @@ function createGlobeDataSet(masterNodeData) {
 	});
 
 	return dataSet;
+}
+
+/**
+ * Convert Data into array form ([lat, lon, magnitude, lat, long, ...])
+ */
+function countMasterNodes(masterNodeData) {
+	let count = 0;
+
+	masterNodeData.forEach(function(d) {
+		count += d.masternodes;
+	});
+
+	return count;
 }
 
 /**

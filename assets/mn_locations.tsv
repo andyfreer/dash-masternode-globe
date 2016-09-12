@@ -7,7 +7,7 @@ lat	lon	title	description	iconSize	iconOffset	icon
 42.6975	23.3242	Bulgaria, Sofia	Masternodes: 9	20,12	0,0	DRK_MN.png
 43.2167	27.9167	Bulgaria, Varna	Masternodes: 1	20,12	0,0	DRK_MN.png
 45.3168	-73.8659	Canada, Beauharnois	Masternodes: 152	20,12	0,0	DRK_MN.png
-45.5088	-73.5878	Canada, Montreal	Masternodes: 36	20,12	0,0	DRK_MN.png
+45.5088	-73.5878	Canada, Montreal	Masternodes: 37	20,12	0,0	DRK_MN.png
 49.2674	-122.736	Canada, Port Coquitlam	Masternodes: 2	20,12	0,0	DRK_MN.png
 46.4501	-63.382	Canada, Toronto	Masternodes: 9	20,12	0,0	DRK_MN.png
 43.4815	-80.5527	Canada, Waterloo	Masternodes: 1	20,12	0,0	DRK_MN.png
@@ -22,7 +22,7 @@ lat	lon	title	description	iconSize	iconOffset	icon
 49.0522	14.4343	Czech Republic, Hluboka nad Vltavou	Masternodes: 1	20,12	0,0	DRK_MN.png
 48.9948	14.1498	Czech Republic, Lhenice	Masternodes: 2	20,12	0,0	DRK_MN.png
 48.8534	2.3488	France, Paris	Masternodes: 25	20,12	0,0	DRK_MN.png
-50.6942	3.17456	France, Roubaix	Masternodes: 481	20,12	0,0	DRK_MN.png
+50.6942	3.17456	France, Roubaix	Masternodes: 484	20,12	0,0	DRK_MN.png
 48.5834	7.74296	France, Strasbourg	Masternodes: 4	20,12	0,0	DRK_MN.png
 50.7766	6.08342	Germany, Aachen	Masternodes: 1	20,12	0,0	DRK_MN.png
 52.5244	13.4105	Germany, Berlin	Masternodes: 4	20,12	0,0	DRK_MN.png
@@ -36,7 +36,6 @@ lat	lon	title	description	iconSize	iconOffset	icon
 49.4478	11.0683	Germany, Nuremberg	Masternodes: 4	20,12	0,0	DRK_MN.png
 54.0887	12.1405	Germany, Rostock	Masternodes: 2	20,12	0,0	DRK_MN.png
 50.5187	8.10812	Germany, Waldbrunn	Masternodes: 217	20,12	0,0	DRK_MN.png
-19.0144	72.8479	India, -	Masternodes: 1	20,12	0,0	DRK_MN.png
 12.9762	77.6033	India, Bangalore	Masternodes: 7	20,12	0,0	DRK_MN.png
 18.5196	73.8553	India, Pune	Masternodes: 1	20,12	0,0	DRK_MN.png
 53.344	-6.26719	Ireland, Dublin	Masternodes: 8	20,12	0,0	DRK_MN.png
@@ -82,6 +81,7 @@ lat	lon	title	description	iconSize	iconOffset	icon
 57.7072	11.9668	Sweden, Goeteborg	Masternodes: 2	20,12	0,0	DRK_MN.png
 56.1616	15.5866	Sweden, Karlskrona	Masternodes: 4	20,12	0,0	DRK_MN.png
 55.6059	13.0007	Sweden, Malmoe	Masternodes: 1	20,12	0,0	DRK_MN.png
+65.3172	21.4794	Sweden, Pitea	Masternodes: 1	20,12	0,0	DRK_MN.png
 59.3326	18.0649	Sweden, Stockholm	Masternodes: 6	20,12	0,0	DRK_MN.png
 46.8499	9.53287	Switzerland, Chur	Masternodes: 1	20,12	0,0	DRK_MN.png
 47.3667	8.55	Switzerland, Zurich	Masternodes: 1	20,12	0,0	DRK_MN.png
