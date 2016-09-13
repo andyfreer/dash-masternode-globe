@@ -1,39 +1,50 @@
-import * as THREE from 'three';
-import * as d3 from 'd3'
+import * as THREE from './lib/three.js';
+import * as d3 from './lib/d3.js';
 import Detector from './detector.js';
 import Globe from './globe.js';
 
+window.DashGlobe = DashGlobe;
 
-var container = document.getElementById('container'),
-	masternodeTotalCount = 4000, // Initial Value
-	pointSize = 1.1,
-	imgDir = 'assets/',
-	globeData = [],
-	globe;
+function DashGlobe(options) {
+	this.options = Object.assign({},
+		{
+			container: document.getElementById('container'),
+			masternodeTotalCount: 4000,
+			pointSize: 1.1,
+			imgDir: 'assets/',
+			url: 'assets/mn_locations.tsv'
+		},
+		options || {});
+	this.globeData = [];
+	this.globe = null;
 
+	this.init();
+}
 
-if (!Detector.webgl) {
-	Detector.addGetWebGLMessage();
-} else {
-	globe = new Globe(container, {
-		imgDir: imgDir,
-		pointSize: pointSize,
+DashGlobe.Detector = Detector;
+
+DashGlobe.prototype.init = function() {
+
+	this.globe = new Globe(this.options.container, {
+		imgDir: this.options.imgDir,
+		pointSize: this.options.pointSize,
 		colorFn: function(label) {
 			return new THREE.Color(0xffffff);
 		}
 	});
-	fetchData(function() {
 
-		for (let i = 0; i < globeData.length; i++) {
-			globe.addData(globeData[i][1], { format: 'magnitude', name: globeData[i][0], animated: true });
+	this.fetchData(() => {
+
+		for (var i = 0; i < this.globeData.length; i++) {
+			this.globe.addData(this.globeData[i][1], { format: 'magnitude', name: this.globeData[i][0], animated: true });
 		}
 
-		globe.createPoints();
-		globe.time = 1;
-		globe.animate();
+		this.globe.createPoints();
+		this.globe.time = 1;
+		this.globe.animate();
 	});
-}
 
+}
 
 /**
  * Fetch Data
@@ -41,17 +52,17 @@ if (!Detector.webgl) {
  * Data taken from (11.09.16)
  * http://178.254.23.111/~pub/Dash/MN_locations.data
  */
-function fetchData(callback) {
-	d3.request('assets/mn_locations.tsv')
+DashGlobe.prototype.fetchData = function (callback) {
+	d3.request(this.options.url)
 		.mimeType('text/tab-separated-values')
-		.response(function(xhr) {
-			return parseMasterNodeDataFromTSV(xhr.responseText);
+		.response((xhr) => {
+			return this.parseMasterNodeDataFromTSV(xhr.responseText);
 		})
-		.get(function(error, tsvData) {
+		.get((error, tsvData) => {
 
-			masternodeTotalCount = countMasterNodes(tsvData);
+			this.masternodeTotalCount = this.countMasterNodes(tsvData);
 
-			globeData.push(['current', createGlobeDataSet(tsvData)]);
+			this.globeData.push(['current', this.createGlobeDataSet(tsvData, this.masternodeTotalCount)]);
 
 			if (typeof callback === 'function') {
 				callback();
@@ -62,13 +73,13 @@ function fetchData(callback) {
 /**
  * Convert Data into array form ([lat, lon, magnitude, lat, long, ...])
  */
-function createGlobeDataSet(masterNodeData) {
-	let dataSet = [];
+DashGlobe.prototype.createGlobeDataSet = function(masterNodeData, masterNodeCount) {
+	var dataSet = [];
 
 	masterNodeData.forEach(function(d) {
 		dataSet.push(d.lat);
 		dataSet.push(d.lon);
-		dataSet.push(d.masternodes/masternodeTotalCount*3 + 3/masternodeTotalCount);
+		dataSet.push(d.masternodes/masterNodeCount*3 + 3/masterNodeCount);
 	});
 
 	return dataSet;
@@ -77,8 +88,8 @@ function createGlobeDataSet(masterNodeData) {
 /**
  * Convert Data into array form ([lat, lon, magnitude, lat, long, ...])
  */
-function countMasterNodes(masterNodeData) {
-	let count = 0;
+DashGlobe.prototype.countMasterNodes = function(masterNodeData) {
+	var count = 0;
 
 	masterNodeData.forEach(function(d) {
 		count += d.masternodes;
@@ -90,7 +101,7 @@ function countMasterNodes(masterNodeData) {
 /**
  * Parse Data rom2
  */
-function parseMasterNodeDataFromTSV(tsvText) {
+DashGlobe.prototype.parseMasterNodeDataFromTSV = function(tsvText) {
 	return d3.tsvParse(tsvText, function(d) {
 			var masternodeCount = 0,
 				lat = 0,
@@ -109,3 +120,5 @@ function parseMasterNodeDataFromTSV(tsvText) {
 			};
 		});
 }
+
+export default DashGlobe;

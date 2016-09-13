@@ -14,5 +14,12 @@
 	</div>
 	<div id="container"></div>
 	<script type="text/javascript" src="dist/dash-masternode-globe.min.js"></script>
+	<script type="text/javascript">
+		if (!DashGlobe.Detector.webgl) {
+			DashGlobe.Detector.addGetWebGLMessage();
+		} else {
+			window.globe = new DashGlobe({});
+		}
+	</script>
 </body>
 </html>
