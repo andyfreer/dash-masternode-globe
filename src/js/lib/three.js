@@ -9,6 +9,7 @@ export { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera.js';
 export { MeshBasicMaterial } from 'three/src/materials/MeshBasicMaterial.js';
 export { Mesh } from 'three/src/objects/Mesh.js';
 export { Matrix4 } from 'three/src/math/Matrix4.js';
+export { Vector3 } from 'three/src/math/Vector3.js';
 export { Geometry } from 'three/src/core/Geometry.js';
 export { ColorKeywords, Color } from 'three/src/math/Color.js';
 export { BoxGeometry } from 'three/src/extras/geometries/BoxGeometry.js';

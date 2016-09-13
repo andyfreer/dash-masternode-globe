@@ -23,6 +23,10 @@ function Globe(container, opts) {
 	};
 	var imgDir = opts.imgDir || '/globe/';
 
+	var initialZoom = opts.initialZoom || 100000;
+
+	var cameraOffset = opts.cameraOffset || { x: 0, y: 0, z: 0 };
+
 	var Shaders = {
 		'earth': {
 			uniforms: {
@@ -80,11 +84,11 @@ function Globe(container, opts) {
 		mouseOnDown = { x: 0, y: 0 };
 	var rotation = { x: 0, y: 0 },
 		incr_rotation = { x: -0.001, y: 0 },
-		target = { x: Math.PI * 3 / 2, y: Math.PI / 6.0 },
+		target = { x: Math.PI * 1.1, y: Math.PI * 0.06 },
 		targetOnDown = { x: 0, y: 0 };
 
 	var distance = 100000,
-		distanceTarget = 100000;
+		distanceTarget = initialZoom || 100000;
 	var padding = 40;
 	var PI_HALF = Math.PI / 2;
 
@@ -357,8 +361,8 @@ function Globe(container, opts) {
 	function render() {
 		zoom(curZoomSpeed);
 
-		target.x += incr_rotation.x;
-		target.y += incr_rotation.y;
+		target.x -= incr_rotation.x;
+		target.y -= incr_rotation.y;
 
 		rotation.x += (target.x - rotation.x) * 0.1;
 		rotation.y += (target.y - rotation.y) * 0.1;
@@ -368,7 +372,7 @@ function Globe(container, opts) {
 		camera.position.y = distance * Math.sin(rotation.y);
 		camera.position.z = distance * Math.cos(rotation.x) * Math.cos(rotation.y);
 
-		camera.lookAt(mesh.position);
+		camera.lookAt(new THREE.Vector3(mesh.position.x + cameraOffset.x, mesh.position.y + cameraOffset.y, mesh.position.z + cameraOffset.z));
 
 		renderer.render(scene, camera);
 	}

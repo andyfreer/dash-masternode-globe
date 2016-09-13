@@ -18,7 +18,10 @@
 		if (!DashGlobe.Detector.webgl) {
 			DashGlobe.Detector.addGetWebGLMessage();
 		} else {
-			window.globe = new DashGlobe({});
+			window.globe = new DashGlobe({
+				cameraOffset: { x: 0, y: 150, z: 0 },
+				initialZoom: 450
+			});
 		}
 	</script>
 </body>
