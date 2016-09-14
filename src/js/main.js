@@ -29,10 +29,9 @@ DashGlobe.prototype.init = function() {
 		imgDir: this.options.imgDir,
 		pointSize: this.options.pointSize,
 		cameraOffset: this.options.cameraOffset,
-		rotationOffset: this.options.rotationOffset,
 		initialZoom: this.options.initialZoom,
-		colorFn: function(label) {
-			return new THREE.Color(0xffffff);
+		colorFn: (label) => {
+			return new THREE.Color(this.options.barColor || 0xffffffff);
 		}
 	});
 
